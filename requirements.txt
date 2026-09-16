@@ -1,0 +1,13 @@
+fastapi
+uvicorn[standard]
+ollama
+qdrant-client
+pydantic
+python-dotenv
+numpy
+pypdf
+python-docx
+beautifulsoup4
+lxml
+markdown
+python-multipart
