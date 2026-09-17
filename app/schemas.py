@@ -36,6 +36,7 @@ class AskRequest(BaseModel):
     question: str
     history: list[HistoryTurn] = []
     top_k: int | None = None
+    model: str | None = None
 
 
 class SourceRef(BaseModel):

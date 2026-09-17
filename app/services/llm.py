@@ -18,13 +18,10 @@ def stream_answer(
     messages += [{"role": turn.role, "content": turn.content} for turn in history]
     messages.append({"role": "user", "content": build_user_message(question, results)})
 
-    thinking_signaled = False
     for chunk in client.chat(model=model, messages=messages, stream=True):
         message = chunk.message
         if message.thinking:
-            if not thinking_signaled:
-                thinking_signaled = True
-                yield {"event": "thinking"}
+            yield {"event": "thinking", "text": message.thinking}
             continue
         if message.content:
             yield {"event": "token", "text": message.content}

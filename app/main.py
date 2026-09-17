@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import settings
 from app.deps import embeddings, store
-from app.routers import chat, documents
+from app.routers import chat, documents, models
 from app.schemas import HealthResponse
 
 app = FastAPI(title="RAG Local API")
@@ -18,6 +18,7 @@ app.add_middleware(
 
 app.include_router(documents.router, prefix="/documents", tags=["documents"])
 app.include_router(chat.router, prefix="/chat", tags=["chat"])
+app.include_router(models.router, prefix="/models", tags=["models"])
 
 
 @app.on_event("startup")

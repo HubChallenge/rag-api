@@ -43,10 +43,10 @@ def ask_question(request: AskRequest) -> StreamingResponse:
                 results=relevant_results,
                 history=history,
                 base_url=settings.ollama_base_url,
-                model=settings.ollama_chat_model,
+                model=request.model or settings.ollama_chat_model,
             ):
                 if event["event"] == "thinking":
-                    yield json.dumps({"type": "thinking"}) + "\n"
+                    yield json.dumps({"type": "thinking", "content": event["text"]}) + "\n"
                 elif event["event"] == "token":
                     yield json.dumps({"type": "token", "content": event["text"]}) + "\n"
                 elif event["event"] == "done":
